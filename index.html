@@ -63,12 +63,15 @@
             background: #dc3545;
             color: #fff;
         }
+        .ad-container {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Auto Monetag Ads</h1>
-        <p class="developer">Developer By Sourav</p>
+        <p class="developer">Developer By A M Sourav</p>
         <div class="stats">
             <p>Watched Ads: <span id="watched">0</span></p>
             <p>Earned Points: <span id="points">0</span></p>
@@ -79,10 +82,10 @@
             <button class="auto" onclick="autoShowAds()">Auto Show Ads</button>
             <button class="stop" onclick="stopAds()">Stop Auto Ads</button>
         </div>
+        <div class="ad-container" id="ad-container"></div>
     </div>
 
-    <!-- Monetag Ad Integration -->
-    <script async src="https://ads.monetag.com/tag.js?publisher_id=2711635"></script>
+    <!-- Monetag Script -->
     <script>
         // Variables
         let watched = 0;
@@ -96,7 +99,20 @@
             points += 10; // Add points for each watched ad
             progress = Math.min(progress + 10, 100); // Update progress
             updateStats();
-            alert('Ad Watched! Points Added.');
+            loadMonetagAd(); // Load the Monetag ad
+        }
+
+        // Function to dynamically load Monetag ad
+        function loadMonetagAd() {
+            const adContainer = document.getElementById('ad-container');
+            adContainer.innerHTML = ''; // Clear previous ads
+
+            const adScript = document.createElement('script');
+            adScript.async = true;
+            adScript.src = "https://ads.monetag.com/tag.js?publisher_id=2711635";
+            adContainer.appendChild(adScript);
+
+            alert('Ad Loaded! Check the ad below.');
         }
 
         // Function for auto-showing ads
